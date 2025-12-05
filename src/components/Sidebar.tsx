@@ -52,6 +52,15 @@ export default function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
         >
           <Icon name="CircleDot" size={24} />
         </button>
+        
+        <button
+          onClick={() => setActiveTab('nft')}
+          className={`w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 ${
+            activeTab === 'nft' ? 'bg-primary text-white' : 'bg-muted text-muted-foreground hover:bg-primary/20'
+          }`}
+        >
+          <Icon name="Gem" size={24} />
+        </button>
       </nav>
 
       <div className="mt-auto flex flex-col gap-4">

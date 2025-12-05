@@ -74,7 +74,7 @@ export default function ChatList({
       <div className="p-6 border-b border-border">
         <div className="flex items-center justify-between mb-4">
           <h1 className="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-            {activeTab === 'chats' ? 'Чаты' : activeTab === 'contacts' ? 'Контакты' : activeTab === 'calls' ? 'Звонки' : 'Статусы'}
+            {activeTab === 'chats' ? 'Чаты' : activeTab === 'contacts' ? 'Контакты' : activeTab === 'calls' ? 'Звонки' : activeTab === 'nft' ? 'NFT Галерея' : 'Статусы'}
           </h1>
           
           {activeTab === 'chats' && (
@@ -266,6 +266,63 @@ export default function ChatList({
             <div className="text-6xl mb-4 animate-scale-in">✨</div>
             <h3 className="text-xl font-semibold mb-2">Статусы</h3>
             <p className="text-muted-foreground">Делитесь моментами с друзьями</p>
+          </div>
+        )}
+
+        {activeTab === 'nft' && (
+          <div className="p-4">
+            <div className="grid grid-cols-2 gap-3">
+              {[
+                { id: '1', name: 'CryptoKitty #4832', image: '🐱', price: '2.5 ETH', rarity: 'Rare' },
+                { id: '2', name: 'Bored Ape #7821', image: '🦧', price: '15.2 ETH', rarity: 'Legendary' },
+                { id: '3', name: 'Cool Cat #2301', image: '😺', price: '3.8 ETH', rarity: 'Epic' },
+                { id: '4', name: 'Pudgy Penguin #91', image: '🐧', price: '4.2 ETH', rarity: 'Rare' },
+                { id: '5', name: 'Doodle #5523', image: '🎨', price: '5.1 ETH', rarity: 'Epic' },
+                { id: '6', name: 'Azuki #1234', image: '🌸', price: '8.7 ETH', rarity: 'Legendary' }
+              ].map((nft) => (
+                <div
+                  key={nft.id}
+                  className="group relative rounded-2xl bg-card border border-border overflow-hidden cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-primary/20 animate-fade-in"
+                >
+                  <div className="aspect-square bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center text-6xl">
+                    {nft.image}
+                  </div>
+                  
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                  
+                  <div className="p-3 space-y-2">
+                    <div className="flex items-start justify-between gap-2">
+                      <h4 className="font-semibold text-sm truncate flex-1">{nft.name}</h4>
+                      <Badge 
+                        variant="secondary" 
+                        className={`text-xs px-2 py-0 ${
+                          nft.rarity === 'Legendary' ? 'bg-gradient-to-r from-yellow-500 to-orange-500 text-white' :
+                          nft.rarity === 'Epic' ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white' :
+                          'bg-gradient-to-r from-blue-500 to-cyan-500 text-white'
+                        }`}
+                      >
+                        {nft.rarity}
+                      </Badge>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs text-muted-foreground">Цена</span>
+                      <span className="text-sm font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                        {nft.price}
+                      </span>
+                    </div>
+                  </div>
+                  
+                  <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <Button 
+                      size="icon" 
+                      className="w-8 h-8 rounded-lg bg-primary/90 hover:bg-primary"
+                    >
+                      <Icon name="Send" size={14} />
+                    </Button>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         )}
       </ScrollArea>

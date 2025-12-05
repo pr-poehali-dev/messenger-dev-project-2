@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import Icon from '@/components/ui/icon';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import ProfileEditor from './ProfileEditor';
 
 type SidebarProps = {
   activeTab: string;
@@ -7,6 +9,7 @@ type SidebarProps = {
 };
 
 export default function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
   return (
     <div className="w-20 bg-card border-r border-border flex flex-col items-center py-6 gap-6">
       <div className="w-12 h-12 bg-gradient-to-br from-primary to-secondary rounded-2xl flex items-center justify-center text-2xl animate-pulse-glow">
@@ -52,17 +55,25 @@ export default function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
       </nav>
 
       <div className="mt-auto flex flex-col gap-4">
-        <button className="w-12 h-12 rounded-xl bg-muted text-muted-foreground hover:bg-primary/20 flex items-center justify-center transition-all duration-300 hover:scale-110">
+        <button 
+          onClick={() => setIsProfileOpen(true)}
+          className="w-12 h-12 rounded-xl bg-muted text-muted-foreground hover:bg-primary/20 flex items-center justify-center transition-all duration-300 hover:scale-110"
+        >
           <Icon name="Settings" size={24} />
         </button>
         
-        <Avatar className="w-12 h-12 ring-2 ring-primary cursor-pointer hover:scale-110 transition-transform">
+        <Avatar 
+          onClick={() => setIsProfileOpen(true)}
+          className="w-12 h-12 ring-2 ring-primary cursor-pointer hover:scale-110 transition-transform"
+        >
           <AvatarImage src="" />
           <AvatarFallback className="bg-gradient-to-br from-primary to-secondary text-white font-semibold">
             ВЫ
           </AvatarFallback>
         </Avatar>
       </div>
+
+      <ProfileEditor isOpen={isProfileOpen} onClose={() => setIsProfileOpen(false)} />
     </div>
   );
 }

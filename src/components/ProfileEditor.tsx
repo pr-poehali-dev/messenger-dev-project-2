@@ -34,7 +34,30 @@ export default function ProfileEditor({ isOpen, onClose }: ProfileEditorProps) {
     privateProfile: false
   });
 
-  const avatarOptions = ['🧑‍💻', '😎', '👨‍💼', '👩‍💼', '🎨', '🚀', '⚡', '🌟', '💡', '🎯', '🔥', '✨'];
+  const [theme, setTheme] = useState('purple');
+
+  const themes = [
+    { name: 'purple', label: 'Фиолетовый', primary: '266 83% 58%', secondary: '328 86% 70%' },
+    { name: 'red', label: 'Красный', primary: '0 84% 60%', secondary: '14 91% 60%' },
+    { name: 'yellow', label: 'Желтый', primary: '45 93% 58%', secondary: '38 92% 50%' },
+    { name: 'blue', label: 'Синий', primary: '217 91% 60%', secondary: '199 89% 48%' }
+  ];
+
+  const applyTheme = (themeName: string) => {
+    const selectedTheme = themes.find(t => t.name === themeName);
+    if (selectedTheme) {
+      document.documentElement.style.setProperty('--primary', selectedTheme.primary);
+      document.documentElement.style.setProperty('--secondary', selectedTheme.secondary);
+      document.documentElement.style.setProperty('--accent', selectedTheme.primary);
+      setTheme(themeName);
+    }
+  };
+
+  const avatarOptions = [
+    '🧑‍💻', '😎', '👨‍💼', '👩‍💼', '🎨', '🚀', '⚡', '🌟', '💡', '🎯', '🔥', '✨',
+    '👾', '🤖', '🦄', '🐱', '🐶', '🦊', '🐼', '🐨', '🦁', '🐯', '🐸', '🐙',
+    '🎭', '🎪', '🎬', '🎮', '🎲', '🎸', '🎹', '🎤', '🎧', '📚', '📷', '✏️'
+  ];
 
   const handleSave = () => {
     onClose();
@@ -158,6 +181,37 @@ export default function ProfileEditor({ isOpen, onClose }: ProfileEditorProps) {
                   <SelectItem value="Невидимка">⚫ Невидимка</SelectItem>
                 </SelectContent>
               </Select>
+            </div>
+          </div>
+
+          <Separator />
+
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold flex items-center gap-2">
+              <Icon name="Palette" size={20} className="text-primary" />
+              Тема оформления
+            </h3>
+            
+            <div className="grid grid-cols-4 gap-3">
+              {themes.map((t) => (
+                <button
+                  key={t.name}
+                  onClick={() => applyTheme(t.name)}
+                  className={`p-4 rounded-xl border-2 transition-all hover:scale-105 ${
+                    theme === t.name
+                      ? 'border-primary bg-primary/10'
+                      : 'border-border bg-muted hover:bg-muted/80'
+                  }`}
+                >
+                  <div
+                    className="w-full h-12 rounded-lg mb-2"
+                    style={{
+                      background: `linear-gradient(135deg, hsl(${t.primary}), hsl(${t.secondary}))`
+                    }}
+                  />
+                  <p className="text-sm font-medium text-center">{t.label}</p>
+                </button>
+              ))}
             </div>
           </div>
 
